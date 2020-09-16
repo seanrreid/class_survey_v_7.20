@@ -1,7 +1,7 @@
 <form name="survey-form" action="/" method="POST">
     ${classInfoData.map(entry => {
         return `<p>
-                    ${entry.topic_name} - I am <strong>${entry.status_title}</strong> at ${entry.topic_name}
+                    ${entry.topic_name} - I am <strong>${entry.status_title}</strong> at ${entry.topic_name}. I want to be:
                     <select name="${entry.topic_name}">
                     ${topicStatusData.map(status => `
                         <option value="${status.id}">${status.status_title}</option>

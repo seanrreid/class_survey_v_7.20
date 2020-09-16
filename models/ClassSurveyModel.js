@@ -1,6 +1,6 @@
 const db = require("./conn");
 
-class ClassInfo {
+class ClassSurveyModel {
   constructor(id, name, rank) {
     this.id = id;
     this.name = name;
@@ -31,6 +31,7 @@ class ClassInfo {
       return error;
     }
   }
+
   static async update(topic, rank) {
     const query = `UPDATE topics SET status_id=${rank} WHERE topic_name = '${topic}'`;
     try {
@@ -43,4 +44,4 @@ class ClassInfo {
   }
 }
 
-module.exports = ClassInfo;
+module.exports = ClassSurveyModel;

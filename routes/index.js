@@ -1,10 +1,10 @@
 const express = require("express"),
   router = express.Router(),
-  surveyModel = require("../models/surveyModel");
+  ClassSurveyModel = require("../models/ClassSurveyModel");
 
 const renderPage = async res => {
-    const classInfoData = await surveyModel.getAllTopicData();
-    const topicStatusData = await surveyModel.getAllStatuses();
+    const classInfoData = await ClassSurveyModel.getAllTopicData();
+    const topicStatusData = await ClassSurveyModel.getAllStatuses();
 
     return res.render("template", {
       locals: {
@@ -21,11 +21,8 @@ const renderPage = async res => {
 const updateEach = async (items) => {
   console.log("items are ", items);
   for (let key in items) {
-      //surveyModel.update(key, items[key]);
-      console.log("key and item", key, items[key] )
+      await ClassSurveyModel.update(key, items[key]);
   }
-    surveyModel.update("HTML", 1);
-
 };
 
 /* GET home page. */
@@ -34,7 +31,7 @@ router.get("/", async function (req, res, next) {
 });
 
 router.post("/", async function (req, res) {
-    updateEach(req.body);
+    await updateEach(req.body);
     renderPage(res);
 });
 
