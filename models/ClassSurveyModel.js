@@ -22,20 +22,9 @@ class ClassSurveyModel {
     }
   }
 
-  static async getAllStatuses() {
+  static async update(topic, rank_id) {
     try {
-      const response = await db.any(`SELECT * FROM class_status;`);
-      return response;
-    } catch (error) {
-      console.error("ERROR: ", error);
-      return error;
-    }
-  }
-
-  static async update(topic, rank) {
-    const query = `UPDATE topics SET status_id=${rank} WHERE topic_name = '${topic}'`;
-    try {
-      const response = await db.result(query);
+      const response = await db.result(`UPDATE topics SET status_id = $1 WHERE topic_name = $2;`, [rank_id, topic]);
       return response;
     } catch (err) {
       console.log("ERROR", err.message);

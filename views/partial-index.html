@@ -1,12 +1,18 @@
 <form name="survey-form" action="/" method="POST">
     ${classInfoData.map(entry => {
         return `<p>
-                    ${entry.topic_name} - I am <strong>${entry.status_title}</strong> at ${entry.topic_name}. I want to be:
-                    <select name="${entry.topic_name}">
-                    ${topicStatusData.map(status => `
-                        <option value="${status.id}">${status.status_title}</option>
-                    `).join('')}
-                    </select>
+                    I am <strong>${entry.status_title}</strong> at
+                    <label>
+                        ${entry.topic_name}
+                        <select name="${entry.topic_name}">
+                            <option value="1">Awesome</option>
+                            <option value="2">Great</option>
+                            <option value="3">Good</option>
+                            <option value="4">Okay</option>
+                            <option value="5">Poor</option>
+                            <option value="6">Unranked</option>
+                        </select>
+                    </label>
                 </p>`
     }).join('')}
     <button type="submit">Update Rankings</button>
