@@ -2,27 +2,32 @@ const express = require("express"),
   router = express.Router(),
   ClassSurveyModel = require("../models/ClassSurveyModel");
 
+const renderPage = async (res) => {
+  const classInfoData = await ClassSurveyModel.getAllTopicData();
+  const statusData = await ClassSurveyModel.getAllStatuses();
+
+  return res.render("template", {
+    locals: {
+      title: "Welcome",
+      classInfoData: classInfoData,
+      statusData: statusData,
+    },
+    partials: {
+      partial: "partial-index",
+    },
+  });
+};
+
 /* GET home page. */
 router.get("/", async function (req, res, next) {
-    const classInfoData = await ClassSurveyModel.getAllTopicData();
-
-    return res.render("template", {
-      locals: {
-        title: "Welcome",
-        classInfoData: classInfoData,
-      },
-      partials: {
-        partial: "partial-index",
-      },
-    });
+  renderPage(res);
 });
 
 router.post("/", async function (req, res) {
-    for (let key in req.body) {
-        const dbResponse = await ClassSurveyModel.update(key, req.body[key]);
-        console.log("database response is:", dbResponse);
-    }
-    res.status(200).send("OK").end();
+  for (let key in req.body) {
+    await ClassSurveyModel.update(key, req.body[key]);
+  }
+  renderPage(res);
 });
 
 module.exports = router;

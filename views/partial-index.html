@@ -1,17 +1,13 @@
 <form name="survey-form" action="/" method="POST">
-    ${classInfoData.map(entry => {
+    ${classInfoData.map(topic => {
         return `<p>
-                    I am <strong>${entry.status_title}</strong> at
+                    I am
                     <label>
-                        ${entry.topic_name}
-                        <select name="${entry.topic_name}">
-                            <option value="1">Awesome</option>
-                            <option value="2">Great</option>
-                            <option value="3">Good</option>
-                            <option value="4">Okay</option>
-                            <option value="5">Poor</option>
-                            <option value="6">Unranked</option>
+                        <select name="${topic.topic_name}">
+                            ${statusData.map(status => `<option value="${status.id}" ${topic.status_id === status.id ? 'selected' : ''}>${status.status_title}</option>`).join('')}
                         </select>
+                        <span>at</span>
+                        ${topic.topic_name}
                     </label>
                 </p>`
     }).join('')}
